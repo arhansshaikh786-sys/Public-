@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>चेकिने जे के किराना स्टोर</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f5f5;
+      color: #222;
+    }
+
+    header {
+      background: #198754;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 25px;
+    }
+
+    header p {
+      margin-top: 6px;
+    }
+
+    .search {
+      padding: 15px;
+      background: white;
+    }
+
+    .search input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      padding: 15px;
+    }
+
+    .product {
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 2px 8px #ddd;
+    }
+
+    .product .emoji {
+      font-size: 45px;
+    }
+
+    .product h3 {
+      margin: 8px 0;
+    }
+
+    .price {
+      color: #198754;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    button {
+      background: #198754;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 7px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .cart {
+      background: white;
+      margin: 15px;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px #ddd;
+    }
+
+    footer {
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🛒 चेकिने जे के किराना स्टोर</h1>
+    <p>आपका अपना ऑनलाइन किराना स्टोर</p>
+  </header>
+
+  <div class="search">
+    <input type="text" id="search" placeholder="🔍 सामान खोजें...">
+  </div>
+
+  <div class="products" id="products">
+
+    <div class="product">
+      <div class="emoji">🍚</div>
+      <h3>चावल</h3>
+      <p class="price">₹60 / kg</p>
+      <button onclick="addToCart('चावल',60)">कार्ट में डालें</button>
+    </div>
+
+    <div class="product">
+      <div class="emoji">🌾</div>
+      <h3>गेहूं</h3>
+      <p class="price">₹45 / kg</p>
+      <button onclick="addToCart('गेहूं',45)">कार्ट में डालें</button>
+    </div>
+
+    <div class="product">
+      <div class="emoji">🥛</div>
+      <h3>दूध</h3>
+      <p class="price">₹30</p>
+      <button onclick="addToCart('दूध',30)">कार्ट में डालें</button>
+    </div>
+
+    <div class="product">
+      <div class="emoji">🫗</div>
+      <h3>तेल</h3>
+      <p class="price">₹130</p>
+      <button onclick="addToCart('तेल',130)">कार्ट में डालें</button>
+    </div>
+
+  </div>
+
+  <div class="cart">
+    <h2>🛍️ आपका कार्ट</h2>
+    <div id="cartItems">कार्ट खाली है</div>
+    <h3 id="total">कुल: ₹0</h3>
+    <button onclick="orderNow()">ऑर्डर करें</button>
+  </div>
+
+  <footer>
+    <p>© 2026 चेकिने जे के किराना स्टोर</p>
+    <p>Cash on Delivery उपलब्ध</p>
+  </footer>
+
+  <script>
+    let cart = [];
+    let total = 0;
+
+    function addToCart(name, price) {
+      cart.push({name: name, price: price});
+      total += price;
+      showCart();
+    }
+
+    function showCart() {
+      let items = document.getElementById("cartItems");
+
+      if (cart.length === 0) {
+        items.innerHTML = "
